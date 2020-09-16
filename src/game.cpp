@@ -3,11 +3,16 @@
 #include "SDL.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height, 
-           std::size_t screen_width, std::size_t screen_height)
+           std::size_t screen_width, std::size_t screen_height,
+          std::vector<size_t> offset)
     : noobnoob(grid_width, grid_height, screen_width, screen_height),
       engine(dev()),
+      levelmap(grid_width, grid_height, screen_width, screen_height, offset),
       random_w(0, static_cast<int>(grid_width)),
       random_h(0, static_cast<int>(grid_height)) {
+  levelmap.loadMap(0);
+  noobnoob.head_x = 0;
+  noobnoob.head_y = 0;
   PlaceArtefact();
 }
 
@@ -26,7 +31,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, noobnoob);
     Update();
-    renderer.Render(noobnoob, artefact);
+    renderer.Render(noobnoob, artefact, levelmap);
 
     frame_end = SDL_GetTicks();
 
@@ -68,7 +73,11 @@ void Game::PlaceArtefact() {
 
 void Game::Update() {
   if (!noobnoob.alive) return;
-
+  
+  //Noobnoob needs access to map layout.
+  noobnoob.levelmap = levelmap;
+  
+  //Update noobnoob
   noobnoob.Update();
 
   int new_x = static_cast<int>(noobnoob.head_x);

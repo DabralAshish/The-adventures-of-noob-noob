@@ -3,11 +3,6 @@
 #include "SDL.h"
 #include "noobnoob.h"
 
-void Controller::ChangeDirection(NoobNoob &noobnoob, NoobNoob::Direction input,
-                                 NoobNoob::Direction opposite) const {
-  if (noobnoob.direction != opposite || noobnoob.size == 1) noobnoob.direction = input;
-  return;
-}
 
 void Controller::HandleInput(bool &running, NoobNoob &noobnoob) const {
   SDL_Event e;
@@ -15,25 +10,22 @@ void Controller::HandleInput(bool &running, NoobNoob &noobnoob) const {
     if (e.type == SDL_QUIT) {
       running = false;
     } else if (e.type == SDL_KEYDOWN) {
+      noobnoob.hasDirectionChanged = true;
       switch (e.key.keysym.sym) {
         case SDLK_UP:
-          ChangeDirection(noobnoob, NoobNoob::Direction::kUp,
-                          NoobNoob::Direction::kDown);
+          noobnoob.direction = NoobNoob::Direction::kUp;
           break;
 
         case SDLK_DOWN:
-          ChangeDirection(noobnoob, NoobNoob::Direction::kDown,
-                          NoobNoob::Direction::kUp);
+          noobnoob.direction = NoobNoob::Direction::kDown;
           break;
 
         case SDLK_LEFT:
-          ChangeDirection(noobnoob, NoobNoob::Direction::kLeft,
-                          NoobNoob::Direction::kRight);
+          noobnoob.direction = NoobNoob::Direction::kLeft;
           break;
 
         case SDLK_RIGHT:
-          ChangeDirection(noobnoob, NoobNoob::Direction::kRight,
-                          NoobNoob::Direction::kLeft);
+          noobnoob.direction = NoobNoob::Direction::kRight;
           break;
       }
     }
