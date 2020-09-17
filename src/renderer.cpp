@@ -1,9 +1,9 @@
 #include "renderer.h"
 #include <iostream>
-// #include <SDL/SDL.h>
-// #include <SDL/SDL_image.h>
-// #include<SDL2/SDL2_image.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 // #include<SDL2/SDL2.h>
+// #include<SDL2/SDL2_image.h>
 //#/usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake
 //#for error above : apt-get install libsdl2-image-dev
 #include <string>
@@ -66,42 +66,45 @@ void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelM
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer);
   
-  //Render level map
-  for(int i = 0; i < grid_width; i++){
-    for(int j = 0; j < grid_height; j++){
-      SDL_Rect rct;
-      auto xy = levelmap.getXY(i, j);
-      rct.x = xy[0];
-      rct.y = xy[1];
-      rct.w = levelmap.cell_width;
-      rct.h = levelmap.cell_height;
+//   Render level map
+//   for(int i = 0; i < grid_width; i++){
+//     for(int j = 0; j < grid_height; j++){
+//       SDL_Rect rct;
+//       auto xy = levelmap.getXY(i, j);
+//       rct.x = xy[0];
+//       rct.y = xy[1];
+//       rct.w = levelmap.cell_width;
+//       rct.h = levelmap.cell_height;
       
-      auto imval = levelmap.getGridImage(i, j);
+//       auto imval = levelmap.getGridImage(i, j);
       
-      if(imval <= 3){
-        SDL_SetRenderDrawColor(sdl_renderer, 0x94, 0xdd, 0xFF, 0xFF);
-        SDL_RenderFillRect(sdl_renderer, &rct);
-      }else if(imval == 4){
-        SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-        SDL_RenderFillRect(sdl_renderer, &rct);
-      }
-      else{
-        SDL_SetRenderDrawColor(sdl_renderer, 0x0d, 0xba, 0x2F, 0xFF);
-        SDL_RenderFillRect(sdl_renderer, &rct);
-      }
-    }
-  }
+//       if(imval <= 3){
+//         SDL_SetRenderDrawColor(sdl_renderer, 0x94, 0xdd, 0xFF, 0xFF);
+//         SDL_RenderFillRect(sdl_renderer, &rct);
+//       }else if(imval == 4){
+//         SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+//         SDL_RenderFillRect(sdl_renderer, &rct);
+//       }
+//       else{
+//         SDL_SetRenderDrawColor(sdl_renderer, 0x0d, 0xba, 0x2F, 0xFF);
+//         SDL_RenderFillRect(sdl_renderer, &rct);
+//       }
+//     }
+//   }
   
    //Try to render the map image:png
-//   SDL_Surface* surface = IMG_Load("resources/map.png");
-//   SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer, surface);
-//   SDL_FreeSurface(surface);
-//   SDL_Rect map_background;
-//   map_background.x = 0;
-//   map_background.y = top_bar_width;
-//   map_background.w = screen_width;
-//   map_background.h = screen_height;
-//   SDL_RenderCopy(sdl_renderer, texture, NULL, &map_background);
+  SDL_Surface* surface = IMG_Load("/home/workspace/The-adventures-of-noob-noob/src/resources/map.png");
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer, surface);
+  SDL_FreeSurface(surface);
+  if(surface == NULL){
+    std::cout << "Null surface!" << std::endl;
+  }
+  SDL_Rect map_background;
+  map_background.x = 0;
+  map_background.y = top_bar_width;
+  map_background.w = screen_width;
+  map_background.h = screen_height;
+  SDL_RenderCopy(sdl_renderer, texture, NULL, &map_background);
   
   // Render artefact
   SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0xFF);
@@ -127,9 +130,10 @@ void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelM
   SDL_RenderFillRect(sdl_renderer, &noob_block);
   
   // Render top bar on top of everything.
-  SDL_SetRenderDrawColor(sdl_renderer, 0x69, 0x69, 0x69, 0x00);
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0x00);
   SDL_RenderFillRect(sdl_renderer, &top_bar);
   
+  SDL_DestroyTexture(texture);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
