@@ -1,5 +1,6 @@
 #include <iostream>
 #include "controller.h"
+#include "files.h"
 #include "game.h"
 #include "renderer.h"
 
@@ -14,11 +15,13 @@ int main() {
   constexpr std::size_t kGameHeight{680}; //sum of Top bar and screen height.
   constexpr std::size_t kGridWidth{32};
   constexpr std::size_t kGridHeight{32};
-
+  
+  std::string const res_path = "../resources";
+  
   Renderer renderer(kTopBarHeight, kTopBarWidth, kGameWidth, kGameHeight, 
                     kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
-  Game game(kGridWidth, kGridHeight, kScreenWidth, kScreenHeight, std::vector<size_t> {0, kTopBarHeight});
+  Game game(kGridWidth, kGridHeight, kScreenWidth, kScreenHeight, std::vector<size_t> {0, kTopBarHeight}, res_path);
   game.Run(controller, renderer, kMsPerFrame);
   std::cout << "Game has terminated successfully!\n";
   std::cout << "Score: " << game.GetScore() << "\n";

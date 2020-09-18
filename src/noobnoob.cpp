@@ -37,7 +37,9 @@ void NoobNoob::UpateNoobNoob() {
     }
     
     if( !(hx >= grid_width || hx < 0 || hy >= grid_height || hy < 0) ){
-      if(levelmap.getGridImage(hx, hy) == 4){
+      int r = levelmap.getGridImage(hx, hy);
+      std::cout << " current image number : " << r << std::endl;
+      if( r != 1 ){
         //Do not update since noobnoob is going out of screen.
         std::cout << "Invalid cell to move to : " << hx <<", " << hy << std::endl;
       }else{

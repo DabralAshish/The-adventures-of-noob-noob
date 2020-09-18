@@ -4,15 +4,17 @@
 
 Game::Game(std::size_t grid_width, std::size_t grid_height, 
            std::size_t screen_width, std::size_t screen_height,
-          std::vector<size_t> offset)
+          std::vector<size_t> offset, std::string const res_path)
     : noobnoob(grid_width, grid_height, screen_width, screen_height),
       engine(dev()),
       levelmap(grid_width, grid_height, screen_width, screen_height, offset),
       random_w(0, static_cast<int>(grid_width)),
-      random_h(0, static_cast<int>(grid_height)) {
-  levelmap.loadMap(0);
-  noobnoob.head_x = 0;
-  noobnoob.head_y = 0;
+      random_h(0, static_cast<int>(grid_height)),
+      files(res_path){
+  
+  levelmap.loadMap(files.readLevelMap("level0"));
+  noobnoob.head_x = 15;
+  noobnoob.head_y = 31;
   PlaceArtefact();
 }
 
@@ -24,6 +26,8 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   Uint32 frame_duration;
   int frame_count = 0;
   bool running = true;
+  files.sdl_renderer = renderer.sdl_renderer;
+  files.readAllImages();
 
   while (running) {
     frame_start = SDL_GetTicks();
@@ -31,7 +35,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, noobnoob);
     Update();
-    renderer.Render(noobnoob, artefact, levelmap);
+    renderer.Render(noobnoob, artefact, levelmap, files);
 
     frame_end = SDL_GetTicks();
 

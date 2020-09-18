@@ -3,8 +3,8 @@
 
 #include <vector>
 #include "noobnoob.h"
-// #include<SDL.h>
 #include "levelmap.h"
+#include "files.h"
 
 class Renderer {
  public:
@@ -14,12 +14,12 @@ class Renderer {
            const std::size_t grid_width, const std::size_t grid_height);
   ~Renderer();
 
-  void Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap);
+  void Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap, Files &files);
   void UpdateWindowTitle(int score, int fps);
-
+  SDL_Renderer *sdl_renderer;
+  
  private:
   SDL_Window *sdl_window;
-  SDL_Renderer *sdl_renderer;
   
   const std::size_t top_bar_height; 
   const std::size_t top_bar_width;

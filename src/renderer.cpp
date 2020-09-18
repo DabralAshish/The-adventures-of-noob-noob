@@ -7,6 +7,7 @@
 //#/usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake
 //#for error above : apt-get install libsdl2-image-dev
 #include <string>
+#include "files.h"
 
 Renderer::Renderer(const std::size_t top_bar_height, const std::size_t top_bar_width,
                    const std::size_t game_width, const std::size_t game_height,
@@ -51,67 +52,48 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap) {
+void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap, Files &files) {
+  // Clear screen
+//   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  SDL_RenderClear(sdl_renderer);
+  
+  // Render top menu bar. 
   SDL_Rect top_bar;
   top_bar.x = 0;
   top_bar.y = 0;
   top_bar.w = top_bar_width;
   top_bar.h = top_bar_height;
 
-  SDL_Rect block;
-  block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
-
-  // Clear screen
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  SDL_RenderClear(sdl_renderer);
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0xFF);
+  SDL_RenderFillRect(sdl_renderer, &top_bar);
   
-//   Render level map
-//   for(int i = 0; i < grid_width; i++){
-//     for(int j = 0; j < grid_height; j++){
-//       SDL_Rect rct;
-//       auto xy = levelmap.getXY(i, j);
-//       rct.x = xy[0];
-//       rct.y = xy[1];
-//       rct.w = levelmap.cell_width;
-//       rct.h = levelmap.cell_height;
-      
-//       auto imval = levelmap.getGridImage(i, j);
-      
-//       if(imval <= 3){
-//         SDL_SetRenderDrawColor(sdl_renderer, 0x94, 0xdd, 0xFF, 0xFF);
-//         SDL_RenderFillRect(sdl_renderer, &rct);
-//       }else if(imval == 4){
-//         SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-//         SDL_RenderFillRect(sdl_renderer, &rct);
-//       }
-//       else{
-//         SDL_SetRenderDrawColor(sdl_renderer, 0x0d, 0xba, 0x2F, 0xFF);
-//         SDL_RenderFillRect(sdl_renderer, &rct);
-//       }
-//     }
-//   }
+  SDL_Rect map_block;
+  map_block.x = 0;
+  map_block.y = top_bar_height;
+  map_block.w = screen_width;
+  map_block.h = screen_height;
   
-   //Try to render the map image:png
-  SDL_Surface* surface = IMG_Load("/home/workspace/The-adventures-of-noob-noob/src/resources/map.png");
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer, surface);
-  SDL_FreeSurface(surface);
-  if(surface == NULL){
-    std::cout << "Null surface!" << std::endl;
-  }
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0xFF, 0x00, 0xFF);
+  SDL_RenderFillRect(sdl_renderer, &map_block);
+  
+  //Try to render the map image:png
   SDL_Rect map_background;
   map_background.x = 0;
   map_background.y = top_bar_width;
   map_background.w = screen_width;
   map_background.h = screen_height;
-  SDL_RenderCopy(sdl_renderer, texture, NULL, &map_background);
+  SDL_Texture *tex = files.textures["map"];
+  SDL_RenderCopy(sdl_renderer, tex, nullptr, &map_block);
   
   // Render artefact
+  SDL_Rect block;
+  block.w = screen_width / grid_width;
+  block.h = screen_height / grid_height;
   SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0xFF);
   block.x = artefact.x * block.w;
-  block.y = (artefact.y) * block.h;
+  block.y = artefact.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
-
+  
   // Render noobnoob : get x,y coordinates from grid coordinates.
   auto noobpos = levelmap.getXY(noobnoob.head_x, noobnoob.head_y);
   
@@ -120,22 +102,19 @@ void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelM
   noob_block.y = noobpos[1];
   noob_block.w = levelmap.cell_width;
   noob_block.h = levelmap.cell_height;
-  //std::cout << " noob " << noob_block.w << ", " << noob_block.h << "\n";
+//   std::cout << " noob " << noob_block.x << ", " << noob_block.y << std::endl;
 
   if (noobnoob.alive) {
-    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
-  } else {
     SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+  } else {
+    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);
   }
   SDL_RenderFillRect(sdl_renderer, &noob_block);
   
-  // Render top bar on top of everything.
-  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0x00);
-  SDL_RenderFillRect(sdl_renderer, &top_bar);
-  
-  SDL_DestroyTexture(texture);
+//   SDL_DestroyTexture(texture);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
+//   std::cout << SDL_GetError() << std::endl;
 }
 
 void Renderer::UpdateWindowTitle(int score, int fps) {

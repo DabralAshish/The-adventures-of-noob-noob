@@ -11,22 +11,13 @@ LevelMap::LevelMap(std::size_t grid_width, std::size_t grid_height,
      offset(offset){
 }
 
-void LevelMap::loadMap(int level){
-  //This should be replaced by proper map later!
-  std::random_device rd;
-  std::mt19937 eng(rd());
-  std::uniform_int_distribution<> dist(1, 6);
-  
-  for(int i=0; i < grid_height; i++){
-    std::vector<int> row; //row vector
-    for(int j=0; j< grid_width; j++){
-      row.push_back(dist(eng));
-    }
-    level_images_ref.push_back(row); //add row vector to level map
-  }
+void LevelMap::loadMap(std::vector<std::vector<int>> levelgrid){
+    level_images_ref = levelgrid;
 }
 
 int LevelMap::getGridImage(int i, int j){
+  std::cout << " x : " << i << "   y : " << j << std::endl;
+  std::cout << level_images_ref[i][j] << std::endl;
   return level_images_ref[i][j];   
 }
 

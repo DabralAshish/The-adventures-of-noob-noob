@@ -2,6 +2,7 @@
 #define LevelMap_H
 
 #include <iostream>
+#include <vector>
 
 class LevelMap {
  public:
@@ -15,7 +16,7 @@ class LevelMap {
   
   int getGridImage(int i, int j); //returns the image reference at i,j index.
   std::vector<float> getXY(int i, int j); //returns the actual coordinates at i,j index.
-  void loadMap(int level); //load a level map from file.
+  void loadMap(std::vector<std::vector<int>> levelgrid); //load a level map from file.
   
   std::size_t cell_height;
   std::size_t cell_width;
