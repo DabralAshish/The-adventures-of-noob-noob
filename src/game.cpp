@@ -71,7 +71,7 @@ void Game::placeCoins(){
   //available coins. Check if noobnoob reached one of the coins
   //positions and remove that coin. 
   
-  int no_coins = 20; //Get 5 different coins for 5 different places.
+  int no_coins = 30; //Get 5 different coins for 5 different places.
   
   //Count how many coins are left in the artefacts center.
   int count = 0;
@@ -79,20 +79,40 @@ void Game::placeCoins(){
   for(auto const &art : artefacts){
     std::string delim = "_";
     auto imref = art.first.substr(0, art.first.find(delim));
-    
-    if(stoi(imref)==13){
-      //Check if noobnoob in the previous step reached a coin.
-      //Erase that coin from the artefacts list. count is not increased
-      //in this case to account for the now collected coin.
-      auto xy = levelmap.getXY(noobnoob.head_x, noobnoob.head_y);
-//       std::cout << " noob : " << xy[0] << "," << xy[1] << "  art : " << art.second.x << "," << art.second.y << std::endl;
-      if(art.second.x == xy[0] && art.second.y == xy[1]){
-//         std::cout << "Reached coin " << art.second.x << "," << art.second.y << std::endl;
-        artefacts.erase(art.first);
-      }else{
-        count++; //found a coin
-      } 
+    if(stoi(imref)==13){ //If 
+      count ++; //count all coins.
     }
+    
+    //Check if noobnoob in the previous step reached a coin.
+    //Erase that coin from the artefacts list. count is not increased
+    //in this case to account for the now collected coin.
+    auto xy = levelmap.getXY(noobnoob.head_x, noobnoob.head_y);
+//     std::cout << " noob : " << xy[0] << "," << xy[1] << "  art : " << art.second.x << "," << art.second.y << std::endl;
+    if(art.second.x == xy[0] && art.second.y == xy[1]){
+//       std::cout << "At artefact location " << std::endl;
+      //Get the index of the artefact.
+      std::vector<int>::const_iterator  itr = std::find(artefact_vals.begin(), artefact_vals.end(), stoi(imref));
+      int index = std::distance(artefact_vals.begin(), itr);
+//       std::cout << "Artefact is : " << imref << std::endl;
+      if(artefact_collect_states[index] == 1){ //Check if the artefact has a collectible state.
+//         std::cout << "Artefact collect status is " << 1 << std::endl;
+        //Check for collection and update rendering bools.
+        if(stoi(imref)==5){
+          noobnoob.is_buddha = true;
+        }else if(stoi(imref)==7){
+          noobnoob.is_key = true;
+        }else if(stoi(imref)==12){
+          noobnoob.is_soup = true;
+        }
+        
+        artefacts.erase(art.first); //Collectibles needs to be deleted.
+        if(stoi(imref)==13){
+//           std::cout << "Coin has been collected " << std::endl;
+          count--; //If a coin has been collected, decrease count.
+          noobnoob.nc += 1; //Coin collected, increase nc.
+        }
+      }
+    } 
   }
   
   //Random number (index) generation. 

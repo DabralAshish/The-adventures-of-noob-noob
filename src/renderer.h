@@ -2,6 +2,7 @@
 #define RENDERER_H
 
 #include <vector>
+#include <SDL_ttf.h>
 #include "noobnoob.h"
 #include "levelmap.h"
 #include "files.h"
@@ -18,6 +19,7 @@ class Renderer {
   void UpdateWindowTitle(int score, int fps);
   SDL_Renderer *sdl_renderer;
   
+  
  private:
   SDL_Window *sdl_window;
   
@@ -29,6 +31,7 @@ class Renderer {
   const std::size_t screen_height;
   const std::size_t grid_width;
   const std::size_t grid_height;
+  
 };
 
 #endif

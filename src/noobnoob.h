@@ -35,7 +35,12 @@ class NoobNoob {
   std::vector<int> artefact_vals;
   std::vector<int> artefact_collect_states;
   std::vector<int> artefact_pass_states;
-
+  
+  bool is_buddha = false;
+  bool is_key = false;
+  bool is_soup = false;
+  int nc = 0;
+  
  private:
   void UpateNoobNoob();
 
