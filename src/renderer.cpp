@@ -60,6 +60,27 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
+void Renderer::Render(int i, Files &files){
+  //REnder credits image.
+  SDL_RenderClear(sdl_renderer);
+  
+  SDL_Rect credit_block;
+  credit_block.x = 0;
+  credit_block.y = 0;
+  credit_block.w = game_width;
+  credit_block.h = game_height;
+  
+  if(i==0){
+    SDL_Texture *cbtex = files.textures["100"];
+    SDL_RenderCopy(sdl_renderer, cbtex, nullptr, &credit_block);
+  }else if(i==1){
+    SDL_Texture *cbtex = files.textures["101"];
+    SDL_RenderCopy(sdl_renderer, cbtex, nullptr, &credit_block);
+  }
+  
+  SDL_RenderPresent(sdl_renderer);
+}
+
 void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> artefacts, LevelMap levelmap, Files &files) {
   // Clear screen
 //   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -85,7 +106,6 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   SDL_RenderCopy(sdl_renderer, cointex, nullptr, &coins);
   
   TTF_Font* txtfont = TTF_OpenFont("../resources/tfont.ttf", 18); 
-//   std::cout << SDL_GetError() << std::endl;
   SDL_Color White = {255, 255, 255};
   std::string s = " : " + std::to_string(noobnoob.nc); //Collected coins so far.
   SDL_Surface* msurf = TTF_RenderText_Solid(txtfont, s.c_str() , White); 
@@ -111,6 +131,19 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   
   SDL_FreeSurface(artsurf);
   SDL_RenderCopy(sdl_renderer, artmess, NULL, &artmess_block);
+  
+  
+  SDL_Surface* chat_surf = TTF_RenderText_Solid(txtfont, "Gate Keeper : Go away!" , White); 
+  SDL_Texture* chatmess = SDL_CreateTextureFromSurface(sdl_renderer, chat_surf);
+  
+  SDL_Rect chat_block; 
+  chat_block.x = 300;  
+  chat_block.y = 10;  
+  chat_block.w = chat_surf->w; 
+  chat_block.h = chat_surf->h; 
+  
+  SDL_FreeSurface(chat_surf);
+  SDL_RenderCopy(sdl_renderer, chatmess, NULL, &chat_block);
   
   //Collectibles rendering :
   SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);

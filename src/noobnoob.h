@@ -39,7 +39,11 @@ class NoobNoob {
   bool is_buddha = false;
   bool is_key = false;
   bool is_soup = false;
-  int nc = 0;
+  int nc = 5;
+  //Enable noobnoob parameter.
+  bool enable_story = false;
+  bool enable_noobnoob = false;
+  int count_enables = 0;
   
  private:
   void UpateNoobNoob();

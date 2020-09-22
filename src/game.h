@@ -29,9 +29,9 @@ class Game {
  private:
   NoobNoob noobnoob;
   std::map<std::string, SDL_Rect> artefacts;
-  std::vector<int> const artefact_vals{4, 5, 6, 7, 9, 10, 11, 12, 13, 14};
-  std::vector<int> const artefact_collect_states{0, 1, 0, 1, 0, 0, 0, 1, 1, 0};
-  std::vector<int> const artefact_pass_states{0, 0, 0, 0, 1, 1, 1, 1, 0};
+  std::vector<int> const artefact_vals{0, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14};
+  std::vector<int> const artefact_collect_states{0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0};
+  std::vector<int> const artefact_pass_states{0, 0, 0, 0, 0, 1, 1, 1, 1, 0};
   LevelMap levelmap;
   std::random_device rd;      
   

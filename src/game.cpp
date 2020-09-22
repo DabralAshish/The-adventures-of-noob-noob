@@ -41,7 +41,14 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, noobnoob);
     Update();
-    renderer.Render(noobnoob, artefacts, levelmap, files);
+    
+    if(noobnoob.enable_story){
+      renderer.Render(1, files);
+    }else if(noobnoob.enable_noobnoob){
+      renderer.Render(noobnoob, artefacts, levelmap, files);
+    }else{
+      renderer.Render(0, files);
+    }
 
     frame_end = SDL_GetTicks();
 
@@ -96,7 +103,7 @@ void Game::placeCoins(){
 //       std::cout << "Artefact is : " << imref << std::endl;
       if(artefact_collect_states[index] == 1){ //Check if the artefact has a collectible state.
 //         std::cout << "Artefact collect status is " << 1 << std::endl;
-        //Check for collection and update rendering bools.
+        //Check for collection and update rendering variables.
         if(stoi(imref)==5){
           noobnoob.is_buddha = true;
         }else if(stoi(imref)==7){
