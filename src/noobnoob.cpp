@@ -26,21 +26,21 @@ void NoobNoob::UpateNoobNoob() {
           switch (direction) {
             case Direction::kUp:
               hy -= speed;
-      //         std::cout <<" move up " << "\n";
+              std::cout <<" move up " << "\n";
               break;
 
             case Direction::kDown:
               hy += speed;
-      //         std::cout <<" move down " << "\n";
+              std::cout <<" move down " << "\n";
               break;
 
             case Direction::kLeft:
               hx -=speed;
-      //         std::cout <<" move left " << "\n";
+              std::cout <<" move left " << "\n";
               break;
 
             case Direction::kRight:
-      //         std::cout <<" move right " << "\n";
+              std::cout <<" move right " << "\n";
               hx += speed;
               break;
           }

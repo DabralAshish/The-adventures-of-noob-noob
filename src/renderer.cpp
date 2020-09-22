@@ -118,7 +118,7 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   message_block.h = msurf->h; 
   
   SDL_FreeSurface(msurf);
-  SDL_RenderCopy(sdl_renderer, message, NULL, &message_block);
+  SDL_RenderCopy(sdl_renderer, message, nullptr, &message_block);
   
   SDL_Surface* artsurf = TTF_RenderText_Solid(txtfont, "Artefacts : " , White); 
   SDL_Texture* artmess = SDL_CreateTextureFromSurface(sdl_renderer, artsurf);
@@ -130,11 +130,13 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   artmess_block.h = artsurf->h; 
   
   SDL_FreeSurface(artsurf);
-  SDL_RenderCopy(sdl_renderer, artmess, NULL, &artmess_block);
+  SDL_RenderCopy(sdl_renderer, artmess, nullptr, &artmess_block);
   
-  
-  SDL_Surface* chat_surf = TTF_RenderText_Solid(txtfont, "Gate Keeper : Go away!" , White); 
+  std::string cs = noobnoob.hint;
+  SDL_Surface* chat_surf = TTF_RenderText_Solid(txtfont, cs.c_str() , White); 
   SDL_Texture* chatmess = SDL_CreateTextureFromSurface(sdl_renderer, chat_surf);
+  
+//   std::cout << "here " << SDL_GetError() << std::endl;
   
   SDL_Rect chat_block; 
   chat_block.x = 300;  
@@ -143,7 +145,7 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   chat_block.h = chat_surf->h; 
   
   SDL_FreeSurface(chat_surf);
-  SDL_RenderCopy(sdl_renderer, chatmess, NULL, &chat_block);
+  SDL_RenderCopy(sdl_renderer, chatmess, nullptr, &chat_block);
   
   //Collectibles rendering :
   SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);
@@ -240,7 +242,6 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   
   
   //Show message onscreen
-  
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);

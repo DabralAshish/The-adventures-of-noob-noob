@@ -20,8 +20,8 @@ Game::Game(std::size_t grid_width, std::size_t grid_height,
   noobnoob.head_y = 31;
   egp = levelmap.getEmptyGridPoints();
   readArtefacts(); //Should be called only once.
-  placeCoins(); // Randomly place coins.
-  checkArtefacts();//Can be called multiple times.
+  //placeCoins(); // Randomly place coins.
+//   checkArtefacts();//Can be called multiple times.
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -80,6 +80,8 @@ void Game::placeCoins(){
   
   int no_coins = 30; //Get 5 different coins for 5 different places.
   
+  bool is_close = false; //Check if an artefact is close. For hinting purposes.
+  
   //Count how many coins are left in the artefacts center.
   int count = 0;
 //   std::cout <<"------------------------------------------------" << std::endl;
@@ -96,6 +98,7 @@ void Game::placeCoins(){
     auto xy = levelmap.getXY(noobnoob.head_x, noobnoob.head_y);
 //     std::cout << " noob : " << xy[0] << "," << xy[1] << "  art : " << art.second.x << "," << art.second.y << std::endl;
     if(art.second.x == xy[0] && art.second.y == xy[1]){
+      is_close = true;
 //       std::cout << "At artefact location " << std::endl;
       //Get the index of the artefact.
       std::vector<int>::const_iterator  itr = std::find(artefact_vals.begin(), artefact_vals.end(), stoi(imref));
@@ -119,8 +122,26 @@ void Game::placeCoins(){
           noobnoob.nc += 1; //Coin collected, increase nc.
         }
       }
-    } 
+    }else if( abs(art.second.x - xy[0]) + abs(art.second.y - xy[1]) == 20){
+      is_close = true;
+//       std::cout << "----------------"<<std::endl;
+//       std::cout << "diff x " << abs(art.second.x - xy[0]) << std::endl;
+//       std::cout << "diff y " << abs(art.second.y - xy[1]) << std::endl;
+        
+      if(stoi(imref)==4){
+          noobnoob.hint.assign("Hint : Press E to payoff");
+        }else if(stoi(imref)==9){
+          noobnoob.hint.assign("Hint : Press E to rotate");
+        }else if(stoi(imref)==6){
+          noobnoob.hint.assign("Hint : E to go, C to come");
+        }else if(stoi(imref)==7){
+          noobnoob.hint.assign("Hint : E to collect key");
+        }
+    }
   }
+  
+  if(!is_close)
+    noobnoob.hint.assign(" ");
   
   //Random number (index) generation. 
   std::mt19937 rng(rd()); 
@@ -176,11 +197,6 @@ void Game::placeCoins(){
 //   std::cout << " current coins : " << current_coins.size() << std::endl;
 }
 
-void Game::checkArtefacts() {
-  //ToDo
-  
-}
-
 void Game::readArtefacts(){
   //Create a vector of artefacts using SDL_Point that can be rendered by SDL.
   auto indices = levelmap.findVal(artefact_vals);
@@ -207,7 +223,6 @@ void Game::Update() {
   //Update noobnoob
   noobnoob.Update();
   placeCoins();
-  checkArtefacts();
 }
 
 int Game::GetScore() const { return score; }

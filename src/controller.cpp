@@ -10,17 +10,6 @@ void Controller::HandleInput(bool &running, NoobNoob &noobnoob) const {
     if (e.type == SDL_QUIT) {
       running = false;
     } else if (e.type == SDL_KEYDOWN) {
-      if(e.key.keysym.sym == SDLK_SPACE){
-        std::cout << "space pressed" << std::endl;
-        //Only once the initial message has been shown
-        //and spacebar is pressed, enable noobnoob.
-        noobnoob.enable_story = true;
-        noobnoob.count_enables += 1;
-        if(noobnoob.count_enables == 2){
-          noobnoob.enable_noobnoob = true;
-          noobnoob.enable_story = false;
-        }
-      }
       if(noobnoob.enable_noobnoob){
         noobnoob.hasDirectionChanged = true;
         switch (e.key.keysym.sym) {
@@ -41,6 +30,24 @@ void Controller::HandleInput(bool &running, NoobNoob &noobnoob) const {
             break;
         }
       }
+      
+      //Keep this below so that enabling noobnoob does not execute the above code.
+      if(e.key.keysym.sym == SDLK_SPACE){
+        std::cout << "space pressed" << std::endl;
+        //Only once the initial message has been shown
+        //and spacebar is pressed, enable noobnoob.
+        noobnoob.enable_story = true;
+        noobnoob.count_enables += 1;
+        if(noobnoob.count_enables >= 2){ // > prevents story from ever coming up.
+          noobnoob.enable_noobnoob = true;
+          noobnoob.enable_story = false;
+        }
+      }
+      
+      if(e.key.keysym.sym == SDLK_e){
+        std::cout << "E is pressed" << std::endl;
+      }
+      
     }
   }
 }

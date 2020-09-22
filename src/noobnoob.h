@@ -44,6 +44,7 @@ class NoobNoob {
   bool enable_story = false;
   bool enable_noobnoob = false;
   int count_enables = 0;
+  std::string hint=" ";
   
  private:
   void UpateNoobNoob();
