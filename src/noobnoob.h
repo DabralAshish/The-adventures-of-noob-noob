@@ -2,6 +2,7 @@
 #define NoobNoob_H
 
 #include <vector>
+#include <chrono>
 #include "SDL.h"
 #include "levelmap.h"
 
@@ -30,6 +31,10 @@ class NoobNoob {
   float head_x;
   float head_y;
   LevelMap levelmap;
+  
+  std::vector<int> artefact_vals;
+  std::vector<int> artefact_collect_states;
+  std::vector<int> artefact_pass_states;
 
  private:
   void UpateNoobNoob();
@@ -38,6 +43,9 @@ class NoobNoob {
   int grid_height;
   int screen_width;
   int screen_height;
+  
+  std::chrono::steady_clock::time_point current = std::chrono::steady_clock::now();
+  std::chrono::steady_clock::time_point last = std::chrono::steady_clock::now();
 };
 
 #endif

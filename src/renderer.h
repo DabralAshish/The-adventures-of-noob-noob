@@ -14,7 +14,7 @@ class Renderer {
            const std::size_t grid_width, const std::size_t grid_height);
   ~Renderer();
 
-  void Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap, Files &files);
+  void Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> artefacts, LevelMap levelmap, Files &files);
   void UpdateWindowTitle(int score, int fps);
   SDL_Renderer *sdl_renderer;
   

@@ -20,7 +20,7 @@ std::vector<std::vector<int>> Files::readLevelMap(std::string path){
       std::vector<int> tmp;
       while(sline >> state){
         std::cout << state << " ";
-        tmp.push_back(state);
+        tmp.push_back(int(state));
       }
       std::cout << std::endl;
       levelmap.push_back(tmp);
@@ -42,16 +42,16 @@ void Files::readAllImages(){
         
         size_t lastindex = fname.find_last_of("."); 
         std::string basename = fname.substr(0, lastindex); 
-        
+//         std::cout << fname << std::endl;
         //check for specific file format.
-        if (fname.length() >= ending.length()) {
-          if(0 == fname.compare (fname.length() - ending.length(), ending.length(), ending)){;
-            std::string s = res_path + "/" + fname;                                                                                             
-            SDL_Surface* surf = IMG_Load(s.c_str());
-            SDL_Texture *texture = SDL_CreateTextureFromSurface(sdl_renderer, surf); //Create texture from surface.
-            SDL_FreeSurface(surf); //Free the surface. Not required anymore.
-            textures.insert(std::make_pair(basename, texture)); //Poupulate textures dictionary.
-          } 
+        
+        if(0 == fname.compare (fname.length() - ending.length(), ending.length(), ending)){
+          std::string s = res_path + "/" + fname;                                                                                             
+          SDL_Surface* surf = IMG_Load(s.c_str());
+          SDL_Texture *texture = SDL_CreateTextureFromSurface(sdl_renderer, surf); //Create texture from surface.
+          SDL_FreeSurface(surf); //Free the surface. Not required anymore.
+          textures.insert(std::make_pair(basename, texture)); //Poupulate textures dictionary.
+//           std::cout << "basename : " << basename << std::endl;
         }
       }
     }

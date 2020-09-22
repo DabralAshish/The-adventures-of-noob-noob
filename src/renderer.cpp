@@ -52,7 +52,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelMap levelmap, Files &files) {
+void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> artefacts, LevelMap levelmap, Files &files) {
   // Clear screen
 //   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(sdl_renderer);
@@ -85,17 +85,19 @@ void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelM
   SDL_Texture *tex = files.textures["map"];
   SDL_RenderCopy(sdl_renderer, tex, nullptr, &map_block);
   
-  // Render artefact
-  SDL_Rect block;
-  block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
-  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0xFF);
-  block.x = artefact.x * block.w;
-  block.y = artefact.y * block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
+  // Render artefacts
+  for(auto const &ent : artefacts){
+    auto key = ent.first; //combined key. imageref_x_y
+    std::string delim = "_";
+    auto imref = key.substr(0, key.find(delim));
+    auto destRect = ent.second; //Get actual value of first key.
+    SDL_Texture *sptex = files.textures[imref]; //imref is the actual image reference.
+    SDL_RenderCopy(sdl_renderer, sptex, nullptr, &destRect);
+  }
   
   // Render noobnoob : get x,y coordinates from grid coordinates.
   auto noobpos = levelmap.getXY(noobnoob.head_x, noobnoob.head_y);
+//   std::cout << "noob pos : " << noobpos[0] << " , " << noobpos[1] << std::endl;
   
   SDL_Rect noob_block;
   noob_block.x = noobpos[0];
@@ -103,13 +105,26 @@ void Renderer::Render(NoobNoob const noobnoob, SDL_Point const &artefact, LevelM
   noob_block.w = levelmap.cell_width;
   noob_block.h = levelmap.cell_height;
 //   std::cout << " noob " << noob_block.x << ", " << noob_block.y << std::endl;
+  
+  SDL_Texture *pl;
+  switch (noobnoob.direction){
+    case noobnoob.Direction::kUp:
+      pl = files.textures["pl_up"];  
+      break;
 
-  if (noobnoob.alive) {
-    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-  } else {
-    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);
+    case noobnoob.Direction::kDown:
+      pl = files.textures["pl_down"];  
+      break;
+
+    case noobnoob.Direction::kLeft:
+      pl = files.textures["pl_left"];  
+      break;
+
+    case noobnoob.Direction::kRight:
+      pl = files.textures["pl_right"];  
+      break;
   }
-  SDL_RenderFillRect(sdl_renderer, &noob_block);
+  SDL_RenderCopy(sdl_renderer, pl, nullptr, &noob_block);
   
 //   SDL_DestroyTexture(texture);
   // Update Screen
