@@ -13,6 +13,7 @@ LevelMap::LevelMap(std::size_t grid_width, std::size_t grid_height,
 }
 
 void LevelMap::loadMap(std::vector<std::vector<int>> levelgrid){
+    levelgrid = levelgrid;
     level_images_ref = levelgrid;
 }
 

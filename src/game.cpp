@@ -73,7 +73,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
-void Game::placeCoins(){
+void Game::processArtefacts(){
   //Alwasy maintain a constant number of coins by keeping track of
   //available coins. Check if noobnoob reached one of the coins
   //positions and remove that coin. 
@@ -127,16 +127,24 @@ void Game::placeCoins(){
 //       std::cout << "----------------"<<std::endl;
 //       std::cout << "diff x " << abs(art.second.x - xy[0]) << std::endl;
 //       std::cout << "diff y " << abs(art.second.y - xy[1]) << std::endl;
-        
+      std::vector<int>::iterator it = std::find(noobnoob.artefact_vals.begin(), noobnoob.artefact_vals.end(), stoi(imref));
+      int index = std::distance(noobnoob.artefact_vals.begin(), it);
       if(stoi(imref)==4){
-          noobnoob.hint.assign("Hint : Press E to payoff");
-        }else if(stoi(imref)==9){
-          noobnoob.hint.assign("Hint : Press E to rotate");
-        }else if(stoi(imref)==6){
-          noobnoob.hint.assign("Hint : E to go, C to come");
-        }else if(stoi(imref)==7){
-          noobnoob.hint.assign("Hint : E to collect key");
-        }
+        noobnoob.hint.assign("Hint : Press E to payoff of the guard");
+        if(noobnoob.is_accessible){
+          artefacts.erase(art.first);
+          noobnoob.is_accessible=false;
+//           std::cout <<noobnoob.artefact_pass_states[index] << std::endl;
+          noobnoob.artefact_pass_states[index] = 1;
+//           std::cout <<noobnoob.artefact_pass_states[index] << std::endl;
+        }  
+      }else if(stoi(imref)==9){
+        noobnoob.hint.assign("Hint : Press E to rotate the wheel");
+      }else if(stoi(imref)==6){
+        noobnoob.hint.assign("Hint : E to go, C to come");
+      }else if(stoi(imref)==7){
+        noobnoob.hint.assign("Hint : E to collect key");
+      }
     }
   }
   
@@ -198,6 +206,9 @@ void Game::placeCoins(){
 }
 
 void Game::readArtefacts(){
+  noobnoob.artefact_pass_states = artefact_pass_states;
+  noobnoob.artefact_collect_states = artefact_collect_states;
+  noobnoob.artefact_vals = artefact_vals;
   //Create a vector of artefacts using SDL_Point that can be rendered by SDL.
   auto indices = levelmap.findVal(artefact_vals);
   for(std::vector<int> v: indices){
@@ -215,14 +226,10 @@ void Game::readArtefacts(){
 
 
 
-void Game::Update() {
-  noobnoob.artefact_pass_states = artefact_pass_states;
-  noobnoob.artefact_collect_states = artefact_collect_states;
-  noobnoob.artefact_vals = artefact_vals;
-  
+void Game::Update() { 
   //Update noobnoob
   noobnoob.Update();
-  placeCoins();
+  processArtefacts();
 }
 
 int Game::GetScore() const { return score; }

@@ -37,7 +37,7 @@ class Game {
   
   int score{0};
   
-  void placeCoins();
+  void processArtefacts();
   void readArtefacts();
   void Update();
 };

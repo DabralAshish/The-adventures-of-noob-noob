@@ -45,6 +45,7 @@ class NoobNoob {
   bool enable_noobnoob = false;
   int count_enables = 0;
   std::string hint=" ";
+  bool is_accessible = false;
   
  private:
   void UpateNoobNoob();

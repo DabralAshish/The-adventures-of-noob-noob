@@ -46,6 +46,7 @@ void Controller::HandleInput(bool &running, NoobNoob &noobnoob) const {
       
       if(e.key.keysym.sym == SDLK_e){
         std::cout << "E is pressed" << std::endl;
+        noobnoob.is_accessible = true;
       }
       
     }

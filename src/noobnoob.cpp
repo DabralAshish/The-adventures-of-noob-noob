@@ -57,6 +57,7 @@ void NoobNoob::UpateNoobNoob() {
               std::vector<int>::iterator it = std::find(artefact_vals.begin(), artefact_vals.end(), r);
               int index = std::distance(artefact_vals.begin(), it);
               //Check the corresponding pass state of that artefact.
+              std::cout << "Checking : " << r << " index " << index << "  state " << artefact_pass_states[index] << std::endl;
               if(artefact_pass_states[index]){
                 std::cout << "Valid cell to move to : " << hx <<", " << hy << std::endl;
                 head_x = hx;
