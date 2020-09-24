@@ -35,15 +35,34 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
 5. Run it: `./The-adventures-of-noob-noob`.
 
 
-## Rubric points addressed
-1. Compiling and testing
-  - Additional librariries required for building are listed (the instructions worked for building the game on the udacity platform).
-  - The project used camek and make to compile as requested.
+## How to play
+1. Use up/down/left/right arrows for movement.
+2. Read instructions on the screen.
 
-2. Loops, Functions, I/O
-  - Functions and loops have been used heavily for providing the game functionalities and for reading input file streams to load data.
-  - The main function initializes the game and creates required instances: 
-  - asdfadsfsdf
+## Rubric points addressed
+1. Compiling and testing:
+  - Additional librariries required for building are listed (the instructions worked for building the game on the udacity platform).
+  - The project used cmake and make to compile as requested.
+
+2. Object-oriented programming:
+  - The project is clearly divided into classes demonstrating the use of object oriented programming:
+     - The main class initializes the game variables: game.cpp (for main game loop), renderer.cpp (for rendering the graphics), levelmap.cpp
+       (used for dealing with level map functionalities such as finding exact x,y location of images on the map. 
+  - noobnoob.cpp (the main player of the game has been defined separately and contains player info and controls movement across the grids 
+    through function UpateNoobNoob() (Line 12). Various attributes of the player (noobnoob.h, Line 39-50) has been defined. These control
+    the interaction of the player with game objects.
+  - files.cpp (for loading all images and levelmap files from disk). 
+  - Controller.cpp conatins all user interaction based on key presses.
+  
+3.  Loops, Functions, I/O:
+  - Functions and loops have been used heavily for providing the game functionalities.
+  - The main function initializes the game and creates required instances: (main.cpp) Line 21, 23, 24.
+  - The project demonstrates and understanding of constrol structures in game.cpp (Line 42) which executes the main game loop.
+  - Looping in a filestream (files.cpp, Line 10, 33)and loading images using advanced SDL functions (Line 50) have been shown.
+  - All images were loaded and converted to textures beforehand so that overhead during rendering is used.
+  - Use of advanced data structures such as map<> (files.h, line 19) is done to access resources such as textures to be called 
+    easily in renderer (renderer.cpp, Line 203-209, where all textures stored in the map are called by a key).
+  - Controller.cpp contains switch statements to accept movement keystrokes
 
 The project demonstrates an understanding of C++ functions and control structures.
 Game.cpp, line 267
