@@ -17,7 +17,7 @@ class Renderer {
 
   void Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> artefacts, LevelMap levelmap, Files &files);
   void Render(int i, Files &files); //Pre-game renderer for credits and story stuff.
-  void UpdateWindowTitle(int score, int fps);
+  void UpdateWindowTitle(int fps);
   SDL_Renderer *sdl_renderer;
   
   

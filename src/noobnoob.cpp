@@ -13,7 +13,6 @@ void NoobNoob::UpateNoobNoob() {
   // Check if direction has changed = movement.
   // Only then make an update.
   if(enable_noobnoob){
-  
     if(hasDirectionChanged){
       current = std::chrono::steady_clock::now();
       long diff = std::chrono::duration_cast<std::chrono::milliseconds> (current - last).count();
@@ -26,21 +25,21 @@ void NoobNoob::UpateNoobNoob() {
           switch (direction) {
             case Direction::kUp:
               hy -= speed;
-              std::cout <<" move up " << "\n";
+//               std::cout <<" move up " << "\n";
               break;
 
             case Direction::kDown:
               hy += speed;
-              std::cout <<" move down " << "\n";
+//               std::cout <<" move down " << "\n";
               break;
 
             case Direction::kLeft:
               hx -=speed;
-              std::cout <<" move left " << "\n";
+//               std::cout <<" move left " << "\n";
               break;
 
             case Direction::kRight:
-              std::cout <<" move right " << "\n";
+//               std::cout <<" move right " << "\n";
               hx += speed;
               break;
           }
@@ -50,28 +49,28 @@ void NoobNoob::UpateNoobNoob() {
             int r = levelmap.getGridImage(hy, hx); //image ref.
 
             if( r==1 || r == 8){
-              std::cout << "Valid cell to move to : " << hx <<", " << hy << std::endl;
+//               std::cout << "Valid cell to move to : " << hx <<", " << hy << std::endl;
               head_x = hx;
               head_y = hy;
             }else{
               std::vector<int>::iterator it = std::find(artefact_vals.begin(), artefact_vals.end(), r);
               int index = std::distance(artefact_vals.begin(), it);
               //Check the corresponding pass state of that artefact.
-              std::cout << "Checking : " << r << " index " << index << "  state " << artefact_pass_states[index] << std::endl;
-              if(artefact_pass_states[index]){
-                std::cout << "Valid cell to move to : " << hx <<", " << hy << std::endl;
+//               std::cout << "Checking : " << r << " index " << index << "  state " << artefact_pass_states[index] << std::endl;
+              if(artefact_pass_states[index]==1){
+//                 std::cout << "Valid cell to move to : " << hx <<", " << hy << std::endl;
                 head_x = hx;
                 head_y = hy;
               }else{
                 //Do not update since noobnoob is going out of screen.
-                std::cout << "Invalid cell to move to : " << hx <<", " << hy << std::endl;
+//                 std::cout << "Invalid cell to move to : " << hx <<", " << hy << std::endl;
               }
             }
           }
 
           hasDirectionChanged = false;
           last = std::chrono::steady_clock::now();
-          std::cout << "---------------------------------" << std::endl;
+//           std::cout << "---------------------------------" << std::endl;
         }
       } 
   }

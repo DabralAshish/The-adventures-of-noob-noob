@@ -76,6 +76,9 @@ void Renderer::Render(int i, Files &files){
   }else if(i==1){
     SDL_Texture *cbtex = files.textures["101"];
     SDL_RenderCopy(sdl_renderer, cbtex, nullptr, &credit_block);
+  }else if(i==2){
+    SDL_Texture *cbtex = files.textures["102"];
+    SDL_RenderCopy(sdl_renderer, cbtex, nullptr, &credit_block);
   }
   
   SDL_RenderPresent(sdl_renderer);
@@ -247,7 +250,7 @@ void Renderer::Render(NoobNoob const noobnoob, std::map<std::string, SDL_Rect> a
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
-  std::string title{"NoobNoob Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+void Renderer::UpdateWindowTitle(int fps) {
+  std::string title{"The adventures of NoobNoob "};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

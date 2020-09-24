@@ -19,7 +19,6 @@ class Game {
        std::vector<size_t> offset, std::string const res_path);
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
-  int GetScore() const;
   int GetSize() const;
   std::vector<size_t> offset;
   Files files;
@@ -29,13 +28,16 @@ class Game {
  private:
   NoobNoob noobnoob;
   std::map<std::string, SDL_Rect> artefacts;
-  std::vector<int> const artefact_vals{0, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14};
-  std::vector<int> const artefact_collect_states{0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0};
-  std::vector<int> const artefact_pass_states{0, 0, 0, 0, 0, 1, 1, 1, 1, 0};
+  std::vector<int> const           artefact_vals{0, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14};
+  std::vector<int> const artefact_collect_states{0, 0, 1, 0, 1, 0,  0,  0,  1,  1,  0};
+  std::vector<int> const    artefact_pass_states{0, 0, 1, 0, 0, 0,  1,  1,  1,  0,  0};
   LevelMap levelmap;
-  std::random_device rd;      
+  std::random_device rd;
+  std::mt19937 rng;
+  std::uniform_int_distribution<int> uni;
+  bool is_discard = false;
   
-  int score{0};
+  bool endgame = false;
   
   void processArtefacts();
   void readArtefacts();

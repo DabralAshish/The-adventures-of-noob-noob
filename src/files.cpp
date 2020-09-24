@@ -19,10 +19,10 @@ std::vector<std::vector<int>> Files::readLevelMap(std::string path){
       int state = 0;
       std::vector<int> tmp;
       while(sline >> state){
-        std::cout << state << " ";
+//         std::cout << state << " ";
         tmp.push_back(int(state));
       }
-      std::cout << std::endl;
+//       std::cout << std::endl;
       levelmap.push_back(tmp);
     }
   }

@@ -46,6 +46,8 @@ class NoobNoob {
   int count_enables = 0;
   std::string hint=" ";
   bool is_accessible = false;
+  bool is_transported = false; //Check if tranport has occurred.
+  bool is_return = false;
   
  private:
   void UpateNoobNoob();

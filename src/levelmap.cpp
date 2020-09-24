@@ -39,7 +39,7 @@ std::vector<std::vector<int>> LevelMap::getEmptyGridPoints(){
     r++;
   }
   
-  return tmp;
+  return std::move(tmp);
 }
 
 std::vector<std::vector<int>> LevelMap::findVal(std::vector<int> vals){
