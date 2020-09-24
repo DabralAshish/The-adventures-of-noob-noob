@@ -19,11 +19,11 @@ The adventures of NoobNoob is puzzle game build for [Udacity C++ Nanodegree Prog
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
-* If the program doesn't compile and gives "reference not found errors, do additional things:
+* If the program doesn't compile and gives "IMG_Load reference" errors or ttf errors, do additional things:
   * Note: These installs are temporary on the udacity platform and will dissappear if you log out.
-  * Edit : /usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake and add to the last line after -lSDL2 : -lSDL2_image and -lSDL2_ttf
+  * Edit : /usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake and add flags to last line: -lSDL2_image and -lSDL2_ttf
   * Insall the libsdl2 image dev package : apt-get install libsdl2-image-dev
-  * Insall the libsdl2 image dev package : apt-get install libsdl2-ttf-dev
+  * Insall the libsdl2 ttf package : apt-get install libsdl2-ttf-dev
 
 ## Basic Build Instructions
 
