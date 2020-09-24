@@ -5,10 +5,7 @@
 #include <SDL_ttf.h>
 // #include<SDL2/SDL2.h>
 // #include<SDL2/SDL2_image.h>
-//#/usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake 
-//Add flags : -lSDL2_image -lSDL2_ttf to the last line
-//#for error above : apt-get install libsdl2-image-dev
-//#for fonts : apt-get install libsdl2-ttf-dev
+
 #include <string>
 #include "files.h"
 
