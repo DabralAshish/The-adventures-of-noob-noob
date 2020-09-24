@@ -1,6 +1,7 @@
 # CPPND: Udacity Capstone Game: The adventures of NoobNoob
 
-The adventures of NoobNoob is puzzle game build for [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213) as the final capstone project. The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+Project description:
+The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213) as the final capstone project. The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses. Even though this game was inspired by the SNAKE game template, it has been highly modified to provide the current game play.
 
 <img src="noobnoob.png"/>
 <img src="noobnoob2.png"/>
@@ -32,3 +33,31 @@ The adventures of NoobNoob is puzzle game build for [Udacity C++ Nanodegree Prog
 3. `cd build`
 4. Compile: `cmake .. && make`
 5. Run it: `./The-adventures-of-noob-noob`.
+
+
+## Rubric points addressed
+1. Compiling and testing
+  - Additional librariries required for building are listed (the instructions worked for building the game on the udacity platform).
+  - The project used camek and make to compile as requested.
+
+2. Loops, Functions, I/O
+  - Functions and loops have been used heavily for providing the game and for reading input file streams to load data.
+  - The main function initializes the game and creates required instances:
+    -
+
+The project demonstrates an understanding of C++ functions and control structures.
+Game.cpp, line 267
+The project uses Object Oriented Programming techniques.
+GameObjects.h
+Classes use appropriate access specifiers for class members.
+GameObjects.h
+Classes abstract implementation details from their interfaces.
+Game.h
+The project follows the Rule of 5.
+GameObjects.h line 36-40
+The project uses smart pointers instead of raw pointers.
+Game.h line 46-48
+The project uses multithreading.
+Timer.cpp line 34
+A mutex or lock is used in the project.
+Timer.cpp line 20
