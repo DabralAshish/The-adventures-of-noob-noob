@@ -52,7 +52,7 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
     through function UpateNoobNoob() (Line 12). Various attributes of the player (noobnoob.h, Line 39-50) has been defined. These control
     the interaction of the player with game objects.
   - files.cpp (for loading all images and levelmap files from disk). 
-  - Controller.cpp conatins all user interaction based on key presses.
+  - Controller.cpp detects all user inputs based on key presses and converts them into useful game moves.
   
 3.  Loops, Functions, I/O:
   - Functions and loops have been used heavily for providing the game functionalities.
@@ -62,7 +62,23 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
   - All images were loaded and converted to textures beforehand so that overhead during rendering is used.
   - Use of advanced data structures such as map<> (files.h, line 19) is done to access resources such as textures to be called 
     easily in renderer (renderer.cpp, Line 203-209, where all textures stored in the map are called by a key).
-  - Controller.cpp contains switch statements to accept movement keystrokes
+  - Controller.cpp contains switch statements to accept movement keystrokes and sets other bool variables (Line 35-55) that are used to detect
+    position, interact and activate artefacts. Example, variables such as enable_story allow a splash window with instructions and some story.
+    This is used to activate a different temporary renderer (Line 60) to display pre-game and post game screens.
+  - The most sophisticated function is Game::processArtefacts(). The function is executed after the player makes a movement (Line 332) and 
+    performs wide variety of actions. 
+      - Line 101, a for each loop is used to iterate over a map of artefacts.
+      - Then the position of the player is checked (Line 113).
+      - To provide interactivity with non-overlapping artefacts, vicinity check is done (Line 139).
+      - Note that the not all artefacts are constant. Coins are generated, collected and redistributed throughout. This requires a highly
+        sophisticated loop especially depending on the kind of artefact used(collectible/non-collectibles). The numbers in if-comparisons
+        correspond to artefacts. Example, 5 means buddha, 7 means a key, 13 means a coin and so on. In addition, state vectors for these
+        artefacts have been used which allow us a finer control on the current state of the artefacts (Line 31-33, game.h).
+      - Random number generation (Line 255, 302, game.cpp) is used to assign coins to different empty spots which are again dyanmic due 
+        to player movement. All the coins are put into the dictionary along with other artefacts so that similar interactivity rules can
+        be applied for vicinity and state detection and manipulation.
+   - Overall, the project demonstrates a the use of a wide variety of concepts.
+      
 
 The project demonstrates an understanding of C++ functions and control structures.
 Game.cpp, line 267
