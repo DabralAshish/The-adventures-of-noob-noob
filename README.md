@@ -41,9 +41,9 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
   - The project used camek and make to compile as requested.
 
 2. Loops, Functions, I/O
-  - Functions and loops have been used heavily for providing the game and for reading input file streams to load data.
-  - The main function initializes the game and creates required instances:
-    -
+  - Functions and loops have been used heavily for providing the game functionalities and for reading input file streams to load data.
+  - The main function initializes the game and creates required instances: 
+  - asdfadsfsdf
 
 The project demonstrates an understanding of C++ functions and control structures.
 Game.cpp, line 267
