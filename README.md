@@ -23,15 +23,16 @@ In this project, you can build your own C++ application or extend this Snake gam
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
-* A-lSDL2_image
-//#/usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake 
-//Add flags : -lSDL2_image -lSDL2_ttf to the last line
-//#for error above : apt-get install libsdl2-image-dev
-//#for fonts : apt-get install libsdl2-ttf-dev
+* If the program doesn't compile and gives "reference not found errors, do additional things:
+  * Note: These installs are temporary on the udacity platform and will dissappear if you log out.
+  * Edit : /usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake and add to the last line after -lSDL2 : -lSDL2_image and -lSDL2_ttf
+  * Insall the libsdl2 image dev package : apt-get install libsdl2-image-dev
+  * Insall the libsdl2 image dev package : apt-get install libsdl2-ttf-dev
 
 ## Basic Build Instructions
 
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
-4. Run it: `./The-adventures-of-noob-noob`.
+3. `cd build`
+4. Compile: `cmake .. && make`
+5. Run it: `./The-adventures-of-noob-noob`.
