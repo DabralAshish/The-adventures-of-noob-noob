@@ -53,6 +53,11 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
     the interaction of the player with game objects.
   - files.cpp (for loading all images and levelmap files from disk). 
   - Controller.cpp detects all user inputs based on key presses and converts them into useful game moves.
+  - Intializer lists have been used in all classes to set default parameters.
+  - All classes define both public and private specifiers. Example, (Line 29, levelmap.h) level_images_ref contains references to all possible
+    images and contain an index corresponding to each image. It is only used by levelmap to return exact x,y coordinates of artefacts (Line 20,26).
+  - Renderer class defines an overloaded version of render() (Line 60, 84, renderer.cpp) function to display pre-, main and post-game graphics.
+  - Line 31, game.cpp, references to objects have been used.
   
 3.  Loops, Functions, I/O:
   - Functions and loops have been used heavily for providing the game functionalities.
@@ -77,22 +82,4 @@ The adventures of NoobNoob is a puzzle game build for [Udacity C++ Nanodegree Pr
       - Random number generation (Line 255, 302, game.cpp) is used to assign coins to different empty spots which are again dyanmic due 
         to player movement. All the coins are put into the dictionary along with other artefacts so that similar interactivity rules can
         be applied for vicinity and state detection and manipulation.
-   - Overall, the project demonstrates a the use of a wide variety of concepts.
-      
-
-The project demonstrates an understanding of C++ functions and control structures.
-Game.cpp, line 267
-The project uses Object Oriented Programming techniques.
-GameObjects.h
-Classes use appropriate access specifiers for class members.
-GameObjects.h
-Classes abstract implementation details from their interfaces.
-Game.h
-The project follows the Rule of 5.
-GameObjects.h line 36-40
-The project uses smart pointers instead of raw pointers.
-Game.h line 46-48
-The project uses multithreading.
-Timer.cpp line 34
-A mutex or lock is used in the project.
-Timer.cpp line 20
+   - Overall, the project demonstrates the use of a wide variety of concepts.
